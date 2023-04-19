@@ -2,7 +2,7 @@
 /.work
 /_output
 cover.out
-/vendor
+#/vendor
 /.vendor-new
 .DS_Store
 .history
