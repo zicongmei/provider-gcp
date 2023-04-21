@@ -25,7 +25,7 @@ import (
 
 // Package type metadata.
 const (
-	Group   = "gcp.upbound.io"
+	Group   = "gcp.zicong.io"
 	Version = "v1alpha1"
 )
 
