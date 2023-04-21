@@ -16,9 +16,7 @@ spec:
       oauthScopes:
       - https://www.googleapis.com/auth/cloud-platform
       preemptible: true
-      serviceAccountSelector:
-        matchLabels:
-          testing.upbound.io/example-name: default
+      serviceAccount: ${google_service_account.default.email}
     nodeCount: 1
 
 ---
@@ -36,20 +34,6 @@ spec:
     initialNodeCount: 1
     location: us-central1
     removeDefaultNodePool: true
-
----
-
-apiVersion: cloudplatform.gcp.upbound.io/v1beta1
-kind: ServiceAccount
-metadata:
-  annotations:
-    meta.upbound.io/example-id: container/v1beta1/nodepool
-  labels:
-    testing.upbound.io/example-name: default
-  name: default
-spec:
-  forProvider:
-    displayName: Service Account
 
 ---
 

@@ -25,6 +25,79 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type LogConfigObservation struct {
+
+	// Can only be specified if VPC flow logging for this subnetwork is enabled.
+	// Toggles the aggregation interval for collecting flow logs. Increasing the
+	// interval time will reduce the amount of generated flow logs for long
+	// lasting connections. Default is an interval of 5 seconds per connection.
+	// Default value is INTERVAL_5_SEC.
+	// Possible values are INTERVAL_5_SEC, INTERVAL_30_SEC, INTERVAL_1_MIN, INTERVAL_5_MIN, INTERVAL_10_MIN, and INTERVAL_15_MIN.
+	AggregationInterval *string `json:"aggregationInterval,omitempty" tf:"aggregation_interval,omitempty"`
+
+	// Export filter used to define which VPC flow logs should be logged, as as CEL expression. See
+	// https://cloud.google.com/vpc/docs/flow-logs#filtering for details on how to format this field.
+	// The default value is 'true', which evaluates to include everything.
+	FilterExpr *string `json:"filterExpr,omitempty" tf:"filter_expr,omitempty"`
+
+	// Can only be specified if VPC flow logging for this subnetwork is enabled.
+	// The value of the field must be in [0, 1]. Set the sampling rate of VPC
+	// flow logs within the subnetwork where 1.0 means all collected logs are
+	// reported and 0.0 means no logs are reported. Default is 0.5 which means
+	// half of all collected logs are reported.
+	FlowSampling *float64 `json:"flowSampling,omitempty" tf:"flow_sampling,omitempty"`
+
+	// Can only be specified if VPC flow logging for this subnetwork is enabled.
+	// Configures whether metadata fields should be added to the reported VPC
+	// flow logs.
+	// Default value is INCLUDE_ALL_METADATA.
+	// Possible values are EXCLUDE_ALL_METADATA, INCLUDE_ALL_METADATA, and CUSTOM_METADATA.
+	Metadata *string `json:"metadata,omitempty" tf:"metadata,omitempty"`
+
+	// List of metadata fields that should be added to reported logs.
+	// Can only be specified if VPC flow logs for this subnetwork is enabled and "metadata" is set to CUSTOM_METADATA.
+	MetadataFields []*string `json:"metadataFields,omitempty" tf:"metadata_fields,omitempty"`
+}
+
+type LogConfigParameters struct {
+
+	// Can only be specified if VPC flow logging for this subnetwork is enabled.
+	// Toggles the aggregation interval for collecting flow logs. Increasing the
+	// interval time will reduce the amount of generated flow logs for long
+	// lasting connections. Default is an interval of 5 seconds per connection.
+	// Default value is INTERVAL_5_SEC.
+	// Possible values are INTERVAL_5_SEC, INTERVAL_30_SEC, INTERVAL_1_MIN, INTERVAL_5_MIN, INTERVAL_10_MIN, and INTERVAL_15_MIN.
+	// +kubebuilder:validation:Optional
+	AggregationInterval *string `json:"aggregationInterval,omitempty" tf:"aggregation_interval,omitempty"`
+
+	// Export filter used to define which VPC flow logs should be logged, as as CEL expression. See
+	// https://cloud.google.com/vpc/docs/flow-logs#filtering for details on how to format this field.
+	// The default value is 'true', which evaluates to include everything.
+	// +kubebuilder:validation:Optional
+	FilterExpr *string `json:"filterExpr,omitempty" tf:"filter_expr,omitempty"`
+
+	// Can only be specified if VPC flow logging for this subnetwork is enabled.
+	// The value of the field must be in [0, 1]. Set the sampling rate of VPC
+	// flow logs within the subnetwork where 1.0 means all collected logs are
+	// reported and 0.0 means no logs are reported. Default is 0.5 which means
+	// half of all collected logs are reported.
+	// +kubebuilder:validation:Optional
+	FlowSampling *float64 `json:"flowSampling,omitempty" tf:"flow_sampling,omitempty"`
+
+	// Can only be specified if VPC flow logging for this subnetwork is enabled.
+	// Configures whether metadata fields should be added to the reported VPC
+	// flow logs.
+	// Default value is INCLUDE_ALL_METADATA.
+	// Possible values are EXCLUDE_ALL_METADATA, INCLUDE_ALL_METADATA, and CUSTOM_METADATA.
+	// +kubebuilder:validation:Optional
+	Metadata *string `json:"metadata,omitempty" tf:"metadata,omitempty"`
+
+	// List of metadata fields that should be added to reported logs.
+	// Can only be specified if VPC flow logs for this subnetwork is enabled and "metadata" is set to CUSTOM_METADATA.
+	// +kubebuilder:validation:Optional
+	MetadataFields []*string `json:"metadataFields,omitempty" tf:"metadata_fields,omitempty"`
+}
+
 type SecondaryIPRangeObservation struct {
 
 	// The range of IP addresses belonging to this subnetwork secondary
@@ -57,80 +130,7 @@ type SecondaryIPRangeParameters struct {
 	RangeName *string `json:"rangeName,omitempty" tf:"range_name"`
 }
 
-type SubnetworkLogConfigObservation struct {
-
-	// Can only be specified if VPC flow logging for this subnetwork is enabled.
-	// Toggles the aggregation interval for collecting flow logs. Increasing the
-	// interval time will reduce the amount of generated flow logs for long
-	// lasting connections. Default is an interval of 5 seconds per connection.
-	// Default value is INTERVAL_5_SEC.
-	// Possible values are INTERVAL_5_SEC, INTERVAL_30_SEC, INTERVAL_1_MIN, INTERVAL_5_MIN, INTERVAL_10_MIN, and INTERVAL_15_MIN.
-	AggregationInterval *string `json:"aggregationInterval,omitempty" tf:"aggregation_interval,omitempty"`
-
-	// Export filter used to define which VPC flow logs should be logged, as as CEL expression. See
-	// https://cloud.google.com/vpc/docs/flow-logs#filtering for details on how to format this field.
-	// The default value is 'true', which evaluates to include everything.
-	FilterExpr *string `json:"filterExpr,omitempty" tf:"filter_expr,omitempty"`
-
-	// Can only be specified if VPC flow logging for this subnetwork is enabled.
-	// The value of the field must be in [0, 1]. Set the sampling rate of VPC
-	// flow logs within the subnetwork where 1.0 means all collected logs are
-	// reported and 0.0 means no logs are reported. Default is 0.5 which means
-	// half of all collected logs are reported.
-	FlowSampling *float64 `json:"flowSampling,omitempty" tf:"flow_sampling,omitempty"`
-
-	// Can only be specified if VPC flow logging for this subnetwork is enabled.
-	// Configures whether metadata fields should be added to the reported VPC
-	// flow logs.
-	// Default value is INCLUDE_ALL_METADATA.
-	// Possible values are EXCLUDE_ALL_METADATA, INCLUDE_ALL_METADATA, and CUSTOM_METADATA.
-	Metadata *string `json:"metadata,omitempty" tf:"metadata,omitempty"`
-
-	// List of metadata fields that should be added to reported logs.
-	// Can only be specified if VPC flow logs for this subnetwork is enabled and "metadata" is set to CUSTOM_METADATA.
-	MetadataFields []*string `json:"metadataFields,omitempty" tf:"metadata_fields,omitempty"`
-}
-
-type SubnetworkLogConfigParameters struct {
-
-	// Can only be specified if VPC flow logging for this subnetwork is enabled.
-	// Toggles the aggregation interval for collecting flow logs. Increasing the
-	// interval time will reduce the amount of generated flow logs for long
-	// lasting connections. Default is an interval of 5 seconds per connection.
-	// Default value is INTERVAL_5_SEC.
-	// Possible values are INTERVAL_5_SEC, INTERVAL_30_SEC, INTERVAL_1_MIN, INTERVAL_5_MIN, INTERVAL_10_MIN, and INTERVAL_15_MIN.
-	// +kubebuilder:validation:Optional
-	AggregationInterval *string `json:"aggregationInterval,omitempty" tf:"aggregation_interval,omitempty"`
-
-	// Export filter used to define which VPC flow logs should be logged, as as CEL expression. See
-	// https://cloud.google.com/vpc/docs/flow-logs#filtering for details on how to format this field.
-	// The default value is 'true', which evaluates to include everything.
-	// +kubebuilder:validation:Optional
-	FilterExpr *string `json:"filterExpr,omitempty" tf:"filter_expr,omitempty"`
-
-	// Can only be specified if VPC flow logging for this subnetwork is enabled.
-	// The value of the field must be in [0, 1]. Set the sampling rate of VPC
-	// flow logs within the subnetwork where 1.0 means all collected logs are
-	// reported and 0.0 means no logs are reported. Default is 0.5 which means
-	// half of all collected logs are reported.
-	// +kubebuilder:validation:Optional
-	FlowSampling *float64 `json:"flowSampling,omitempty" tf:"flow_sampling,omitempty"`
-
-	// Can only be specified if VPC flow logging for this subnetwork is enabled.
-	// Configures whether metadata fields should be added to the reported VPC
-	// flow logs.
-	// Default value is INCLUDE_ALL_METADATA.
-	// Possible values are EXCLUDE_ALL_METADATA, INCLUDE_ALL_METADATA, and CUSTOM_METADATA.
-	// +kubebuilder:validation:Optional
-	Metadata *string `json:"metadata,omitempty" tf:"metadata,omitempty"`
-
-	// List of metadata fields that should be added to reported logs.
-	// Can only be specified if VPC flow logs for this subnetwork is enabled and "metadata" is set to CUSTOM_METADATA.
-	// +kubebuilder:validation:Optional
-	MetadataFields []*string `json:"metadataFields,omitempty" tf:"metadata_fields,omitempty"`
-}
-
-type SubnetworkObservation_2 struct {
+type SubnetworkObservation struct {
 
 	// Creation timestamp in RFC3339 text format.
 	CreationTimestamp *string `json:"creationTimestamp,omitempty" tf:"creation_timestamp,omitempty"`
@@ -171,7 +171,7 @@ type SubnetworkObservation_2 struct {
 	// logs will be exported to Stackdriver. This field cannot be set if the purpose of this
 	// subnetwork is INTERNAL_HTTPS_LOAD_BALANCER
 	// Structure is documented below.
-	LogConfig []SubnetworkLogConfigObservation `json:"logConfig,omitempty" tf:"log_config,omitempty"`
+	LogConfig []LogConfigObservation `json:"logConfig,omitempty" tf:"log_config,omitempty"`
 
 	// The network this subnet belongs to.
 	// Only networks that are in the distributed mode can have subnetworks.
@@ -226,7 +226,7 @@ type SubnetworkObservation_2 struct {
 	StackType *string `json:"stackType,omitempty" tf:"stack_type,omitempty"`
 }
 
-type SubnetworkParameters_2 struct {
+type SubnetworkParameters struct {
 
 	// An optional description of this resource. Provide this property when
 	// you create the resource. This field can be set only at resource
@@ -253,7 +253,7 @@ type SubnetworkParameters_2 struct {
 	// subnetwork is INTERNAL_HTTPS_LOAD_BALANCER
 	// Structure is documented below.
 	// +kubebuilder:validation:Optional
-	LogConfig []SubnetworkLogConfigParameters `json:"logConfig,omitempty" tf:"log_config,omitempty"`
+	LogConfig []LogConfigParameters `json:"logConfig,omitempty" tf:"log_config,omitempty"`
 
 	// The network this subnet belongs to.
 	// Only networks that are in the distributed mode can have subnetworks.
@@ -326,13 +326,13 @@ type SubnetworkParameters_2 struct {
 // SubnetworkSpec defines the desired state of Subnetwork
 type SubnetworkSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     SubnetworkParameters_2 `json:"forProvider"`
+	ForProvider     SubnetworkParameters `json:"forProvider"`
 }
 
 // SubnetworkStatus defines the observed state of Subnetwork.
 type SubnetworkStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        SubnetworkObservation_2 `json:"atProvider,omitempty"`
+	AtProvider        SubnetworkObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -2078,18 +2078,8 @@ type NodeConfigParameters struct {
 
 	// The service account to be used by the Node VMs.
 	// If not specified, the "default" service account is used.
-	// +crossplane:generate:reference:type=github.com/upbound/provider-gcp/apis/cloudplatform/v1beta1.ServiceAccount
-	// +crossplane:generate:reference:extractor=github.com/upbound/upjet/pkg/resource.ExtractParamPath("email",true)
 	// +kubebuilder:validation:Optional
 	ServiceAccount *string `json:"serviceAccount,omitempty" tf:"service_account,omitempty"`
-
-	// Reference to a ServiceAccount in cloudplatform to populate serviceAccount.
-	// +kubebuilder:validation:Optional
-	ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
-
-	// Selector for a ServiceAccount in cloudplatform to populate serviceAccount.
-	// +kubebuilder:validation:Optional
-	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 
 	// Shielded Instance options. Structure is documented below.
 	// +kubebuilder:validation:Optional
