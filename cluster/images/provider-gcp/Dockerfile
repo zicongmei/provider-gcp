@@ -48,5 +48,6 @@ USER ${USER_ID}
 EXPOSE 8080
 
 ADD "bin/${TARGETOS}_${TARGETARCH}/provider" /usr/local/bin/provider
+ADD package.yaml /package.yaml
 
 ENTRYPOINT ["provider"]

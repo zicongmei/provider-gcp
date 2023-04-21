@@ -23,6 +23,9 @@ img.publish:
 
 img.build.shared:
 	@cp Dockerfile $(IMAGE_TEMP_DIR) || $(FAIL)
+	@cat ../../../package/crds/* > package.yaml
+	@cat ../../../package/crossplane.yaml >> package.yaml
+	@cp package.yaml $(IMAGE_TEMP_DIR) || $(FAIL) 
 	@cp terraformrc.hcl $(IMAGE_TEMP_DIR) || $(FAIL)
 	@cp -r $(OUTPUT_DIR)/bin/ $(IMAGE_TEMP_DIR)/bin || $(FAIL)
 	@docker buildx build $(BUILD_ARGS) \
