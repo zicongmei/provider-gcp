@@ -54,7 +54,7 @@ func GetProvider() *tjconfig.Provider {
 			externalNameConfigurations(),
 			descriptionOverrides(),
 		),
-		tjconfig.WithRootGroup("gcp.upbound.io"),
+		tjconfig.WithRootGroup("gcp.zicong.io"),
 		tjconfig.WithShortName("gcp"),
 		// Comment out the following line to generate all resources.
 		tjconfig.WithIncludeList(resourcesWithExternalNameConfig()),

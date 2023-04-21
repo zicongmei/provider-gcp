@@ -1,4 +1,4 @@
-apiVersion: containeraws.gcp.upbound.io/v1beta1
+apiVersion: containeraws.gcp.zicong.io/v1beta1
 kind: NodePool
 metadata:
   annotations:
@@ -50,7 +50,7 @@ spec:
 
 ---
 
-apiVersion: containeraws.gcp.upbound.io/v1beta1
+apiVersion: containeraws.gcp.zicong.io/v1beta1
 kind: Cluster
 metadata:
   annotations:
